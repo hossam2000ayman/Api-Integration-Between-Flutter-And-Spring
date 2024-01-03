@@ -23,7 +23,7 @@ public class TaskItem {
     @Column(name = "description")
     private String description;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd")
     @Column(name = "startDate")
     private String startDate;
 

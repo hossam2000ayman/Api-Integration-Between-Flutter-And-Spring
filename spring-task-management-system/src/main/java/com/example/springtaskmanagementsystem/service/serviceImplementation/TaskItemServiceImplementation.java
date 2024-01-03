@@ -6,6 +6,10 @@ import com.example.springtaskmanagementsystem.model.TaskItem;
 import com.example.springtaskmanagementsystem.repository.TaskItemRepository;
 import com.example.springtaskmanagementsystem.service.TaskItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@CacheConfig(cacheNames = "tasks")
 public class TaskItemServiceImplementation implements TaskItemService {
 
     private TaskItemRepository taskItemRepository;
@@ -25,6 +30,7 @@ public class TaskItemServiceImplementation implements TaskItemService {
     }
 
     @Override
+    @CacheEvict(allEntries = true)
     public TaskItem addTask(TaskItem taskItem) {
         if(taskItemRepository.existsTaskItemByTitle(taskItem.getTitle()))
             throw new TaskItemAlreadyExistException("Task already exist, cannot add task with same title");
@@ -38,6 +44,7 @@ public class TaskItemServiceImplementation implements TaskItemService {
     }
 
     @Override
+    @CacheEvict(key = "#id")
     public String deleteTask(int id) {
         Optional<TaskItem> taskItemOptional = taskItemRepository.findById(id);
         if (taskItemOptional.isEmpty())
@@ -47,6 +54,7 @@ public class TaskItemServiceImplementation implements TaskItemService {
     }
 
     @Override
+    @CachePut(key = "#id")
     public String updateTask(int id) {
         boolean exist = taskItemRepository.existsById(id);
         if(exist){
@@ -60,6 +68,7 @@ public class TaskItemServiceImplementation implements TaskItemService {
     }
 
     @Override
+    @Cacheable(key = "#id")
     public TaskItem readTask(int id) {
         Optional<TaskItem> taskItemOptional = taskItemRepository.findById(id);
         if (taskItemOptional.isEmpty())
@@ -69,16 +78,19 @@ public class TaskItemServiceImplementation implements TaskItemService {
     }
 
     @Override
+    @Cacheable
     public List<TaskItem> readAllTasks() {
         return taskItemRepository.findAll();
     }
 
     @Override
+    @Cacheable
     public Page<TaskItem> pageTasks(int page, int pageSize) {
         return taskItemRepository.findAll(PageRequest.of(page, pageSize));
     }
 
     @Override
+    @Cacheable
     public Page<TaskItem> pageTasksWithSort(int page, int pageSize, String field) {
         return taskItemRepository.findAll(PageRequest.of(page, pageSize).withSort(Sort.by(field).descending()));
     }
