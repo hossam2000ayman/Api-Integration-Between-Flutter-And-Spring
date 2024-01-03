@@ -5,10 +5,12 @@ import 'package:flutter_task_management_system/model/Task.dart';
 import 'package:http/http.dart' as http;
 
 class DatabaseService {
-  static Future<Task> addTask(String title, String description) async {
+  static Future<Task> addTask(
+      String title, String description, String startDate) async {
     Map data = {
       "title": title,
       "description": description,
+      "startDate": startDate
     };
 
     var body = json.encode(data);
@@ -47,13 +49,11 @@ class DatabaseService {
     return response;
   }
 
-
-  static Future<http.Response> deleteTask(int id)async {
+  static Future<http.Response> deleteTask(int id) async {
     var url = Uri.parse(baseUrl + "/delete/${id}");
     http.Response response = await http.delete(url, headers: headers);
     //Todo just display message
     print(response.body);
     return response;
-
   }
 }

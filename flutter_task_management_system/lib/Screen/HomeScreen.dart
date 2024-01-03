@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_management_system/Screen/AddTaskScreen.dart';
+import 'package:flutter_task_management_system/Screen/GooglCalenderScreen.dart';
 import 'package:flutter_task_management_system/Services/Database_Service.dart';
 import 'package:flutter_task_management_system/TaskTile.dart';
 import 'package:flutter_task_management_system/model/Task.dart';
 import 'package:flutter_task_management_system/model/Tasks_data.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,8 +41,26 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         : Scaffold(
             appBar: AppBar(
+              actions: [
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: IconButton(
+                    icon: Icon(Icons.calendar_month_sharp),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => GoogleCalenderScreen(),
+                      ));
+                    },
+                  ),
+                ),
+              ],
               title: Text(
-                  'Todo Task (${Provider.of<TasksData>(context).tasks.length})'),
+                'Todo Task (${Provider.of<TasksData>(context).tasks.length})',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
               centerTitle: true,
               backgroundColor: Colors.green,
             ),
@@ -71,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 );
               },
-              child: Icon(Icons.add),
+              child: Icon(Icons.add,color: Colors.white,),
             ),
           );
   }

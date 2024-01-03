@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_management_system/model/Task.dart';
 import 'package:flutter_task_management_system/model/Tasks_data.dart';
+import 'package:intl/intl.dart';
 
 class TaskTile extends StatelessWidget {
   final Task task;
@@ -11,6 +12,7 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String currentDate = DateFormat("yyyy.MM.dd").format(DateTime.now());
     return Card(
       child: ListTile(
         leading: Checkbox(
@@ -51,10 +53,26 @@ class TaskTile extends StatelessWidget {
                 ),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  task.done
+                      ? "Task ended at : ${currentDate}"
+                      : "Task started at : ${task.startDate}",
+                  style: TextStyle(
+                    fontSize: task.done ? 13 : 15,
+                    decoration: task.done
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
         trailing: IconButton(
-          icon: Icon(Icons.clear),
+          icon: Icon(Icons.delete),
           onPressed: () {
             tasksData.deleteTask(task);
           },
