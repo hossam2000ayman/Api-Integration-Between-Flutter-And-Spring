@@ -1,7 +1,7 @@
 package com.example.springtaskmanagementsystem.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -22,6 +22,10 @@ public class TaskItem {
 
     @Column(name = "description")
     private String description;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    @Column(name = "startDate")
+    private String startDate;
 
 
 
@@ -66,5 +70,13 @@ public class TaskItem {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 }
