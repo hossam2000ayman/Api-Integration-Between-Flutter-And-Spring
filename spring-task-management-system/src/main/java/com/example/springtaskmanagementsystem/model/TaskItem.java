@@ -27,6 +27,24 @@ public class TaskItem {
     @Column(name = "startDate")
     private String startDate;
 
+    @Column(name = "hour")
+    private int hour;
+
+    @Column(name = "minute")
+    private int minute;
+
+    @Column(name = "second")
+    private int second;
+
+    @Column(name = "duration_in_hour")
+    private int durationInHour;
+
+    @Column(name = "location")
+    private String location;
+
+
+
+
 
 
 
@@ -78,5 +96,45 @@ public class TaskItem {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public void setSecond(int second) {
+        this.second = second;
+    }
+
+    public int getDurationInHour() {
+        return durationInHour;
+    }
+
+    public void setDurationInHour(int durationInHour) {
+        this.durationInHour = durationInHour;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

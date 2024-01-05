@@ -1,5 +1,6 @@
 package com.example.springtaskmanagementsystem.controller;
 
+import com.example.springtaskmanagementsystem.exceptions.exception.FailedToAddEventException;
 import com.example.springtaskmanagementsystem.model.TaskItem;
 import com.example.springtaskmanagementsystem.service.TaskItemService;
 import jakarta.validation.Valid;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @RestController
@@ -21,7 +24,7 @@ public class TaskItemController {
     }
 
     @PostMapping("add")
-    public TaskItem addTask(@RequestBody TaskItem taskItem) {
+    public TaskItem addTask(@RequestBody TaskItem taskItem) throws IOException, GeneralSecurityException {
         return taskItemService.addTask(taskItem);
     }
 
@@ -47,7 +50,7 @@ public class TaskItemController {
     }
 
     @GetMapping("read/all")
-    public List<TaskItem> readAllTasks() {
+    public List<TaskItem> readAllTasks() throws GeneralSecurityException, IOException {
         return taskItemService.readAllTasks();
     }
 
