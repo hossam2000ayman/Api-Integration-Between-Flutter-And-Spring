@@ -14,7 +14,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   String taskTitle = "";
   String taskDescription = "";
 
-  DateTime? startDate = DateFormat("yyyy.MM.dd").parse("2024.01.03");
+  DateTime? startDate = DateFormat("yyyy.MM.dd").parse("2024.01.01");
+  int hour = 0;
+  int minute = 0;
+  int second = 0;
+  int durationInHour = 0;
+  String location = "";
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -54,7 +59,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             },
           ),
           SizedBox(
-            height: 40,
+            height: 20,
           ),
           Text(
             'Add Description',
@@ -71,7 +76,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             },
           ),
           SizedBox(
-            height: 40,
+            height: 30,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -113,13 +118,104 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ),
           ),
           SizedBox(
+            height: 30,
+          ),
+          Text(
+            'Add Time (24 hr)',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.green,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                width: 100,
+                child: TextField(
+                  decoration: InputDecoration(labelText: "Hour"),
+                  autofocus: true,
+                  onChanged: (val) {
+                    hour = int.parse(val);
+                  },
+                ),
+              ),
+              Container(
+                width: 100,
+                child: TextField(
+                  decoration: InputDecoration(labelText: "Minute"),
+                  autofocus: true,
+                  onChanged: (val) {
+                    minute = int.parse(val);
+                  },
+                ),
+              ),
+              Container(
+                width: 100,
+                child: TextField(
+                  decoration: InputDecoration(labelText: "Second"),
+                  autofocus: true,
+                  onChanged: (val) {
+                    second = int.parse(val);
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            width: 100,
+            margin: EdgeInsets.symmetric(horizontal: 100),
+            child: TextField(
+              decoration: InputDecoration(labelText: "Duration In Hour"),
+              autofocus: true,
+              onChanged: (val) {
+                durationInHour = int.parse(val);
+              },
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Add Location',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.green,
+            ),
+          ),
+          TextField(
+            autofocus: true,
+            onChanged: (val) {
+              location = val;
+            },
+          ),
+          SizedBox(
             height: 40,
           ),
           TextButton(
             onPressed: () {
-              if (taskTitle.isNotEmpty && taskDescription.isNotEmpty) {
-                Provider.of<TasksData>(context, listen: false)
-                    .addTask(taskTitle, taskDescription, formattedDate);
+              if (taskTitle.isNotEmpty &&
+                  taskDescription.isNotEmpty &&
+                  hour <= 23 &&
+                  minute <= 60 &&
+                  second <= 60 &&
+                  durationInHour.isFinite &&
+                  !durationInHour.isNaN &&
+                  location.isNotEmpty) {
+                Provider.of<TasksData>(context, listen: false).addTask(
+                    taskTitle,
+                    taskDescription,
+                    formattedDate,
+                    hour,
+                    minute,
+                    second,
+                    durationInHour,
+                    location);
               }
               Navigator.of(context).pop();
             },

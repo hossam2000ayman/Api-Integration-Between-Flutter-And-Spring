@@ -6,11 +6,23 @@ import 'package:http/http.dart' as http;
 
 class DatabaseService {
   static Future<Task> addTask(
-      String title, String description, String startDate) async {
+      String title,
+      String description,
+      String startDate,
+      int hour,
+      int minute,
+      int second,
+      int durationInHour,
+      String location) async {
     Map data = {
       "title": title,
       "description": description,
-      "startDate": startDate
+      "startDate": startDate,
+      "hour": hour,
+      "minute": minute,
+      "second": second,
+      "durationInHour": durationInHour,
+      "location": location
     };
 
     var body = json.encode(data);

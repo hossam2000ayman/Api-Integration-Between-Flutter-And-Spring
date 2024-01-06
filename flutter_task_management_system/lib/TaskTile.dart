@@ -13,6 +13,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String currentDate = DateFormat("yyyy.MM.dd").format(DateTime.now());
+    String currentTime = DateFormat("HH:mm:ss").format(DateTime.now());
     return Card(
       child: ListTile(
         leading: Checkbox(
@@ -56,16 +57,58 @@ class TaskTile extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  task.done
-                      ? "Task ended at : ${currentDate}"
-                      : "Task started at : ${task.startDate}",
-                  style: TextStyle(
-                    fontSize: task.done ? 13 : 15,
-                    decoration: task.done
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      task.done
+                          ? "Task ended at : ${currentDate}"
+                          : "Task started at : ${task.startDate}",
+                      style: TextStyle(
+                        fontSize: task.done ? 13 : 15,
+                        decoration: task.done
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          task.done
+                              ? "from : ${task.hour}:${task.minute}:${task.second}"
+                              : "from : ${task.hour}:${task.minute}:${task.second}",
+                          style: TextStyle(
+                            fontSize: task.done ? 13 : 15,
+                            decoration: task.done
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
+                        ),
+                        Text(
+                          task.done
+                              ? " to : ${task.hour + task.durationInHour}:${task.minute}:${task.second}"
+                              : " to : ${task.hour + task.durationInHour}:${task.minute}:${task.second}",
+                          style: TextStyle(
+                            fontSize: task.done ? 13 : 15,
+                            decoration: task.done
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      task.done
+                          ? "Task is Done"
+                          : "Estimating time : ${task.durationInHour} hours",
+                      style: TextStyle(
+                        fontSize: task.done ? 13 : 15,
+                        decoration: task.done
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

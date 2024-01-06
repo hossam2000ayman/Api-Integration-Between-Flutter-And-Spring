@@ -25,7 +25,7 @@ List<Appointment> getTasks() {
   for (Task task in tasks) {
     if (task.startDate != null) {
       DateTime startDate = DateFormat("yyyy.MM.dd").parse(task.startDate);
-      DateTime endDate = startDate.add(Duration(hours: 2));
+      DateTime endDate = startDate.add(Duration(hours: task.durationInHour));
 
       appointments.add(Appointment(
         startTime: startDate,
