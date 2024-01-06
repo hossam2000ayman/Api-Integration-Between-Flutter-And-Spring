@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_system/Services/Database_Service.dart';
 import 'package:flutter_task_management_system/model/Task.dart';
 import 'package:flutter_task_management_system/model/Tasks_data.dart';
 import 'package:intl/intl.dart';
@@ -23,19 +22,17 @@ List<Appointment> getTasks() {
 
   //convert task to appointments
   for (Task task in tasks) {
-    if (task.startDate != null) {
-      DateTime startDate = DateFormat("yyyy.MM.dd").parse(task.startDate);
-      DateTime endDate = startDate.add(Duration(hours: task.durationInHour));
+    DateTime startDate = DateFormat("yyyy.MM.dd").parse(task.startDate);
+    DateTime endDate = startDate.add(Duration(hours: task.durationInHour));
 
-      appointments.add(Appointment(
-        startTime: startDate,
-        endTime: endDate,
-        subject: task.title,
-        notes: task.description,
-        color: task.done ? Colors.grey : Colors.blue,
-      ));
+    appointments.add(Appointment(
+      startTime: startDate,
+      endTime: endDate,
+      subject: task.title,
+      notes: task.description,
+      color: task.done ? Colors.grey : Colors.blue,
+    ));
     }
-  }
   return appointments;
 }
 

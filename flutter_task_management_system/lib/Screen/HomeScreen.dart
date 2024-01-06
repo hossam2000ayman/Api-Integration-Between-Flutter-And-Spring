@@ -6,7 +6,6 @@ import 'package:flutter_task_management_system/TaskTile.dart';
 import 'package:flutter_task_management_system/model/Task.dart';
 import 'package:flutter_task_management_system/model/Tasks_data.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

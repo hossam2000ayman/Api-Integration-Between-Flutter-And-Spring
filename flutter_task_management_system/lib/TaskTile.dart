@@ -13,7 +13,7 @@ class TaskTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String currentDate = DateFormat("yyyy.MM.dd").format(DateTime.now());
-    String currentTime = DateFormat("HH:mm:ss").format(DateTime.now());
+    //String currentTime = DateFormat("HH:mm:ss").format(DateTime.now());
     return Card(
       child: ListTile(
         leading: Checkbox(
